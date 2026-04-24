@@ -13,6 +13,7 @@ public sealed class UpgraderGame {
 	public const float MaxUpgradeChance = .799f;
 	public const int MaxPackCards = 3;
 
+	private int _rngNextCount;
 	private readonly Random _rng;
 	private readonly List<CollectableCard> _catalog = [];
 	private readonly List<CollectableCard> _inv = [];
@@ -61,15 +62,16 @@ public sealed class UpgraderGame {
 		byte[] sf = rd.ReadBytes(SaveFormat.Length);
 		if (!sf.SequenceEqual(SaveFormat))
 			throw new ArgumentException($"Incorrect save format", nameof(data));
+		_rngNextCount = rd.ReadInt32();
 		SourceSeed = rd.ReadInt32();
+		_rng = new(SourceSeed);
+		for (int i = 0; i <= _rngNextCount; i++) _rng.Next();
 		Balance = rd.ReadSingle();
 		StartTime = new(rd.ReadInt64(), TimeSpan.Zero);
 		_savedElapsedTime = new(rd.ReadInt64());
 		_inv = [.. rd.ReadCollection(ReadCollectableCard)];
 		_upgInput = [.. rd.ReadCollection(ReadCollectableCard)];
 		_upgHistory = [.. rd.ReadCollection(ReadUpgradeInfo)];
-		_rng = new(SourceSeed);
-		_upgHistory.ForEach(_ => _rng.Next());
 		_sessionStartTime = DateTimeOffset.UtcNow;
 	}
 
@@ -77,6 +79,7 @@ public sealed class UpgraderGame {
 		using MemoryStream ms = new();
 		using BinaryWriter wr = new(ms);
 		wr.Write(SaveFormat);
+		wr.Write(_rngNextCount);
 		wr.Write(SourceSeed);
 		wr.Write(Balance);
 		wr.Write(StartTime.UtcTicks);
@@ -154,6 +157,7 @@ public sealed class UpgraderGame {
 
 		for (int i = 0; i < cards.Length; i++) {
 			float next = _rng.NextSingle() * totalWeight;
+			_rngNextCount++;
 			float cumulative = 0f;
 
 			cards[i] = cardSet[^1];
@@ -211,6 +215,7 @@ public sealed class UpgraderGame {
 			_inv.Add(dropItem);
 			result = true;
 		}
+		_rngNextCount++;
 		_upgHistory.Add(new() {
 			InputItems = [.. _upgInput],
 			DropItem = dropItem,
