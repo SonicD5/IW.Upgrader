@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../SonicD5.Json/SonicD5.Json.csproj" />
+  <Project Path="IW.Upgrader.Tui/IW.Upgrader.Tui.csproj" />
+  <Project Path="IW.Upgrader/IW.Upgrader.csproj" />
+</Solution>
