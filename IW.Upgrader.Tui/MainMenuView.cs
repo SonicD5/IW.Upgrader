@@ -4,8 +4,6 @@ using SonicD5.Json;
 using IW.Upgrader.Card;
 using System.Runtime.CompilerServices;
 using System.Diagnostics.CodeAnalysis;
-using DiscordRPC;
-using Button = Terminal.Gui.Button;
 
 namespace IW.Upgrader.Tui;
 

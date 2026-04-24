@@ -61,6 +61,24 @@ public sealed class CardListView : ListView {
 
 	public override void Redraw(Rect contentArea) {
 		var bg = TuiGame.BackgroundColor;
+
+		// ── Корректировка TopItem: скроллить до конца ──
+		int itemCount = _texts.Count;
+		int visibleRows = contentArea.Height;
+
+		// Позволяем скроллить так, чтобы последний элемент мог быть
+		// на ПОСЛЕДНЕЙ строке видимой области (а не на первой)
+		int maxTop = Math.Max(0, itemCount - 1);
+		int minTop = Math.Max(0, itemCount - visibleRows);
+
+		// Не даём уйти выше первого элемента
+		if (TopItem < 0)
+			TopItem = 0;
+
+		// Ограничиваем снизу: последний элемент на последней видимой строке
+		if (TopItem > minTop)
+			TopItem = minTop;
+
 		int top = TopItem;
 
 		for (int row = 0; row < contentArea.Height; row++) {

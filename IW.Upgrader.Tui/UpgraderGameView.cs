@@ -6,7 +6,6 @@ using System.Globalization;
 using Terminal.Gui;
 using TextCopy;
 using static IW.Upgrader.Tui.Helpers.CardListView;
-using Button = Terminal.Gui.Button;
 
 namespace IW.Upgrader.Tui;
 
@@ -1118,12 +1117,13 @@ public sealed class UpgraderGameView : Toplevel {
 		}
 
 		// ── Кнопки ──
-		var btnPrev = new Button("◄ Пред.");
+		var btnPrev = new Button("◄ Пред.") { Enabled = currentPage > 0 };
 		btnPrev.Clicked += () => {
 			if (currentPage > 0) { currentPage--; RenderPage(); }
+
 		};
 
-		var btnNext = new Button("След. ►");
+		var btnNext = new Button("След. ►") { Enabled = currentPage < totalPages - 1 };
 		btnNext.Clicked += () => {
 			if (currentPage < totalPages - 1) { currentPage++; RenderPage(); }
 		};

@@ -16,7 +16,6 @@ public static class TuiGame {
 	public const string ItemTypesFile = "item_types.json5";
 	public const string ItemPacksFile = "item_packs.json5";
 	public static readonly DiscordRpcClient DRpcClient = new("1497262733752533224");
-	public static readonly RichPresence RichPrecence = new() { Type = ActivityType.Playing };
 
 	[DynamicDependency(DynamicallyAccessedMemberTypes.AllProperties | DynamicallyAccessedMemberTypes.AllConstructors, typeof(CollectableCardType))]
 	[DynamicDependency(DynamicallyAccessedMemberTypes.AllProperties | DynamicallyAccessedMemberTypes.AllConstructors, typeof(CollectableCardPack))]
