@@ -196,7 +196,7 @@ public sealed class UpgraderGame {
 	}
 
 	public void UndoPut() {
-		_inv.AddRange(_upgInput);
+		_inv.AddRange(_upgInput.Where(i => i.type is not null));
 		Array.Clear(_upgInput);
 	}
 
