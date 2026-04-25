@@ -7,7 +7,7 @@ using System.Text;
 namespace IW.Upgrader;
 
 public sealed class UpgraderGame {
-	private static readonly byte[] SaveFormat = Encoding.ASCII.GetBytes("IWUP14");
+	private static readonly byte[] SaveFormat = Encoding.ASCII.GetBytes("IWUP15");
 	public const int InputLimit = 6;
 	public const float MinUpgradeChance = .001f;
 	public const float MaxUpgradeChance = .799f;

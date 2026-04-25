@@ -10,7 +10,7 @@ namespace IW.Upgrader.Tui;
 public static class TuiGame {
 
 	public const Color BackgroundColor = Color.Black;
-	public const string VersionName = "1.4";
+	public const string VersionName = "1.5";
 	public const string Name = $"IW Upgrader {VersionName}";
 	public const string SaveFile = "save.iwupg";
 	public const string ItemTypesFile = "item_types.json5";
